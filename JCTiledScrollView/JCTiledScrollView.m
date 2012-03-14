@@ -42,6 +42,8 @@
 @synthesize tiledView = _tiledView;
 @synthesize canvasView = _canvasView;
 @synthesize dataSource = _dataSource;
+@synthesize scrollView = _scrollView;
+
 
 + (Class)tiledLayerClass
 {
@@ -52,16 +54,20 @@
 {
 	if ((self = [super initWithFrame:frame]))
   {
+    
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+      
     self.autoresizingMask = (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth);
+    _scrollView.autoresizingMask = (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth);  
     self.levelsOfZoom = 2;
-    self.minimumZoomScale = 1.;
-    self.delegate = self;
+    _scrollView.minimumZoomScale = 1.;
+    _scrollView.delegate = self;
     self.backgroundColor = [UIColor whiteColor];
-    self.contentSize = contentSize;
-    self.bouncesZoom = YES;
-    self.bounces = YES;
+    _scrollView.contentSize = contentSize;
+    _scrollView.bouncesZoom = YES;
+    _scrollView.bounces = YES;
 
-    CGRect canvas_frame = CGRectMake(0., 0., self.contentSize.width, self.contentSize.height);
+    CGRect canvas_frame = CGRectMake(0., 0., _scrollView.contentSize.width, _scrollView.contentSize.height);
     _canvasView = [[UIView alloc] initWithFrame:canvas_frame];
 
     self.tiledView = [[[[[self class] tiledLayerClass] alloc] initWithFrame:canvas_frame] autorelease];
@@ -69,7 +75,8 @@
     
     [self.canvasView addSubview:self.tiledView];
 
-    [self addSubview:self.canvasView];
+    [_scrollView addSubview:self.canvasView];
+    [self addSubview:_scrollView];
 	}
 
 	return self;
@@ -77,13 +84,25 @@
 
 -(void)dealloc
 {	
-  [_tiledView release];
-  _tiledView = nil;
+    [_tiledView release];
+    _tiledView = nil;
 
-  [_canvasView release];
-  _canvasView = nil;
+    [_canvasView release];
+    _canvasView = nil;
+    
+    [_scrollView release];
+    _scrollView = nil;
 
 	[super dealloc];
+}
+
+
+-(void)setZoomScale:(float)zoomScale{
+    self.scrollView.zoomScale = zoomScale;
+}
+
+-(float)zoomScale{
+    return self.scrollView.zoomScale;
 }
 
 #pragma mark - UIScrolViewDelegate
@@ -109,12 +128,16 @@
   }
 }
 
+
+
+
+
 #pragma mark - JCTiledScrollView
 
 -(void)setLevelsOfZoom:(size_t)levelsOfZoom
 {
   _levelsOfZoom = levelsOfZoom;
-  self.maximumZoomScale = (float)powf(2, MAX(0, levelsOfZoom));
+  _scrollView.maximumZoomScale = (float)powf(2, MAX(0, levelsOfZoom));
 }
 
 - (void)setLevelsOfDetail:(size_t)levelsOfDetail
@@ -128,13 +151,13 @@
 - (void)setContentCenter:(CGPoint)center animated:(BOOL)animated
 {
   CGPoint new_contentOffset;
-  new_contentOffset.x = MAX(0, (center.x * self.zoomScale) - (self.bounds.size.width / 2.0f));
-  new_contentOffset.y = MAX(0, (center.y * self.zoomScale) - (self.bounds.size.height / 2.0f));
+  new_contentOffset.x = MAX(0, (center.x * _scrollView.zoomScale) - (self.bounds.size.width / 2.0f));
+  new_contentOffset.y = MAX(0, (center.y * _scrollView.zoomScale) - (self.bounds.size.height / 2.0f));
   
-  new_contentOffset.x = MIN(new_contentOffset.x, (self.contentSize.width - self.bounds.size.width));
-  new_contentOffset.y = MIN(new_contentOffset.y, (self.contentSize.height - self.bounds.size.height));
+  new_contentOffset.x = MIN(new_contentOffset.x, (_scrollView.contentSize.width - self.bounds.size.width));
+  new_contentOffset.y = MIN(new_contentOffset.y, (_scrollView.contentSize.height - self.bounds.size.height));
   
-  [self setContentOffset:new_contentOffset animated:animated];
+  [_scrollView setContentOffset:new_contentOffset animated:animated];
 }
 
 #pragma mark - JCTileSource

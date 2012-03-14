@@ -41,11 +41,13 @@
 - (void)tiledScrollViewDidScroll:(JCTiledScrollView *)scrollView;
 @end
 
-@interface JCTiledScrollView : UIScrollView <UIScrollViewDelegate>
+@interface JCTiledScrollView : UIView <UIScrollViewDelegate>
 
 @property (nonatomic, assign) id <JCTiledScrollViewDelegate> tiledScrollViewDelegate;
+@property (nonatomic, retain) UIScrollView * scrollView;
 @property (nonatomic, assign) id <JCTileSource> dataSource;
 @property (nonatomic, retain) JCTiledView *tiledView;
+@property (nonatomic, assign) float zoomScale;
 @property (nonatomic, assign) size_t levelsOfZoom;
 @property (nonatomic, assign) size_t levelsOfDetail;
 

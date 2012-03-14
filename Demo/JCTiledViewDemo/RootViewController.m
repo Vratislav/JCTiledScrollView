@@ -16,6 +16,7 @@
 @synthesize scrollView = scrollView_;
 @synthesize detailView = detailView_;
 
+
 - (void)dealloc
 {
   [scrollView_ release];
