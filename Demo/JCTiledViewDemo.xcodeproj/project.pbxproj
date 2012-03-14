@@ -31,17 +31,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2698E115151138680036BAD2 /* RMAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RMAnnotation.h; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMAnnotation.h"; sourceTree = "<group>"; };
-		2698E116151138680036BAD2 /* RMAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RMAnnotation.m; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMAnnotation.m"; sourceTree = "<group>"; };
-		2698E117151138680036BAD2 /* RMMapLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RMMapLayer.h; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMapLayer.h"; sourceTree = "<group>"; };
-		2698E118151138680036BAD2 /* RMMapLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RMMapLayer.m; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMapLayer.m"; sourceTree = "<group>"; };
-		2698E119151138680036BAD2 /* RMMapOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RMMapOverlayView.h; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMapOverlayView.h"; sourceTree = "<group>"; };
-		2698E11A151138680036BAD2 /* RMMapOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RMMapOverlayView.m; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMapOverlayView.m"; sourceTree = "<group>"; };
-		2698E11B151138680036BAD2 /* RMMarker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RMMarker.h; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMarker.h"; sourceTree = "<group>"; };
-		2698E11C151138680036BAD2 /* RMMarker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RMMarker.m; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMMarker.m"; sourceTree = "<group>"; };
-		2698E11D151138680036BAD2 /* RMPixel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = RMPixel.c; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMPixel.c"; sourceTree = "<group>"; };
-		2698E11E151138680036BAD2 /* RMPixel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = RMPixel.h; path = "../../JCTiledScrollView BK/JCTiledScrollView/RMPixel.h"; sourceTree = "<group>"; };
-		2698E11F151138680036BAD2 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = "../../JCTiledScrollView BK/JCTiledScrollView/RootViewController.m"; sourceTree = "<group>"; };
+		26C725E01511642600E6918A /* RMAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMAnnotation.h; sourceTree = "<group>"; };
+		26C725E11511642600E6918A /* RMAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMAnnotation.m; sourceTree = "<group>"; };
+		26C725E21511642600E6918A /* RMMapLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMMapLayer.h; sourceTree = "<group>"; };
+		26C725E31511642600E6918A /* RMMapLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMMapLayer.m; sourceTree = "<group>"; };
+		26C725E41511642600E6918A /* RMMapOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMMapOverlayView.h; sourceTree = "<group>"; };
+		26C725E51511642600E6918A /* RMMapOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMMapOverlayView.m; sourceTree = "<group>"; };
+		26C725E61511642600E6918A /* RMMarker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMMarker.h; sourceTree = "<group>"; };
+		26C725E71511642600E6918A /* RMMarker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
+		26C725E81511642600E6918A /* RMPixel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
+		26C725E91511642600E6918A /* RMPixel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
 		8809DC4C14D8E44A0003B4C6 /* tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tiles; path = ../tiles; sourceTree = "<group>"; };
 		8809DC4E14D8E4C40003B4C6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		8809DC4F14D8E4C40003B4C6 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
@@ -95,17 +94,16 @@
 		2698E114151138210036BAD2 /* RMStuff */ = {
 			isa = PBXGroup;
 			children = (
-				2698E115151138680036BAD2 /* RMAnnotation.h */,
-				2698E116151138680036BAD2 /* RMAnnotation.m */,
-				2698E117151138680036BAD2 /* RMMapLayer.h */,
-				2698E118151138680036BAD2 /* RMMapLayer.m */,
-				2698E119151138680036BAD2 /* RMMapOverlayView.h */,
-				2698E11A151138680036BAD2 /* RMMapOverlayView.m */,
-				2698E11B151138680036BAD2 /* RMMarker.h */,
-				2698E11C151138680036BAD2 /* RMMarker.m */,
-				2698E11D151138680036BAD2 /* RMPixel.c */,
-				2698E11E151138680036BAD2 /* RMPixel.h */,
-				2698E11F151138680036BAD2 /* RootViewController.m */,
+				26C725E01511642600E6918A /* RMAnnotation.h */,
+				26C725E11511642600E6918A /* RMAnnotation.m */,
+				26C725E21511642600E6918A /* RMMapLayer.h */,
+				26C725E31511642600E6918A /* RMMapLayer.m */,
+				26C725E41511642600E6918A /* RMMapOverlayView.h */,
+				26C725E51511642600E6918A /* RMMapOverlayView.m */,
+				26C725E61511642600E6918A /* RMMarker.h */,
+				26C725E71511642600E6918A /* RMMarker.m */,
+				26C725E81511642600E6918A /* RMPixel.c */,
+				26C725E91511642600E6918A /* RMPixel.h */,
 			);
 			name = RMStuff;
 			sourceTree = "<group>";
