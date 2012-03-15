@@ -28,6 +28,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreGraphics/CGGeometry.h>
+#import "JCTiledView.h"
+#import "RMAnnotation.h"
+#import "RMMapOverlayView.h"
 
 @class JCTiledScrollView, JCTiledView;
 
@@ -39,15 +43,27 @@
 @optional
 - (void)tiledScrollViewDidZoom:(JCTiledScrollView *)scrollView;
 - (void)tiledScrollViewDidScroll:(JCTiledScrollView *)scrollView;
+
+//From RMMApViewDelegate
+- (RMMapLayer *)mapView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation;
+- (void)mapView:(JCTiledScrollView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
+- (void)mapView:(JCTiledScrollView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
+
 @end
 
-@interface JCTiledScrollView : UIView <UIScrollViewDelegate>
+@interface JCTiledScrollView : UIView <UIScrollViewDelegate,RMMapOverlayViewDelegate>{
+    //From RMMapView
+    NSMutableSet   *annotations;
+    NSMutableSet   *visibleAnnotations;
+    BOOL            enableClustering, positionClusterMarkersAtTheGravityCenter;
+    RMMapOverlayView *overlayView;
+}
 
 @property (nonatomic, assign) id <JCTiledScrollViewDelegate> tiledScrollViewDelegate;
 @property (nonatomic, retain) UIScrollView * scrollView;
+@property (nonatomic, assign) float zoomScale;
 @property (nonatomic, assign) id <JCTileSource> dataSource;
 @property (nonatomic, retain) JCTiledView *tiledView;
-@property (nonatomic, assign) float zoomScale;
 @property (nonatomic, assign) size_t levelsOfZoom;
 @property (nonatomic, assign) size_t levelsOfDetail;
 
@@ -56,5 +72,9 @@
 - (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize;
 
 - (void)setContentCenter:(CGPoint)center animated:(BOOL)animated;
+
+//From RMMapView
+- (void)addAnnotation:(RMAnnotation *)annotation;
+
 
 @end
