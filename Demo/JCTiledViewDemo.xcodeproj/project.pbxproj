@@ -12,6 +12,7 @@
 		26C725EC1511719900E6918A /* RMMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E51511642600E6918A /* RMMapOverlayView.m */; };
 		26C725ED1511719900E6918A /* RMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E71511642600E6918A /* RMMarker.m */; };
 		26C725EE1511719900E6918A /* RMPixel.c in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E81511642600E6918A /* RMPixel.c */; };
+		26C725F11511733E00E6918A /* markers in Resources */ = {isa = PBXBuildFile; fileRef = 26C725F01511733E00E6918A /* markers */; };
 		8809DC4D14D8E44A0003B4C6 /* tiles in Resources */ = {isa = PBXBuildFile; fileRef = 8809DC4C14D8E44A0003B4C6 /* tiles */; };
 		8809DC5014D8E4C40003B4C6 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8809DC4F14D8E4C40003B4C6 /* RootViewController.m */; };
 		8809DC5214D8E8560003B4C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8809DC5114D8E8560003B4C6 /* QuartzCore.framework */; };
@@ -46,6 +47,7 @@
 		26C725E71511642600E6918A /* RMMarker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
 		26C725E81511642600E6918A /* RMPixel.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = RMPixel.c; sourceTree = "<group>"; };
 		26C725E91511642600E6918A /* RMPixel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMPixel.h; sourceTree = "<group>"; };
+		26C725F01511733E00E6918A /* markers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = markers; sourceTree = SOURCE_ROOT; };
 		8809DC4C14D8E44A0003B4C6 /* tiles */ = {isa = PBXFileReference; lastKnownFileType = folder; name = tiles; path = ../tiles; sourceTree = "<group>"; };
 		8809DC4E14D8E4C40003B4C6 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		8809DC4F14D8E4C40003B4C6 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		887EE94C14D8DC2D00AB0A92 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				26C725F01511733E00E6918A /* markers */,
 				88DCC88214F3BEF800B206F5 /* Map.pdf */,
 				8809DC4C14D8E44A0003B4C6 /* tiles */,
 				88CD1A3714E2007F00B54AF0 /* Icon-72.png */,
@@ -268,6 +271,7 @@
 				88CD1A3C14E2007F00B54AF0 /* Icon@2x.png in Resources */,
 				88DCC88314F3BEF800B206F5 /* Map.pdf in Resources */,
 				88C19C80150C4D6F007184E6 /* README.md in Resources */,
+				26C725F11511733E00E6918A /* markers in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
