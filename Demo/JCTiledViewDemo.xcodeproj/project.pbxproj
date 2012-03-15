@@ -124,6 +124,7 @@
 				887EE94414D8DC2D00AB0A92 /* Frameworks */,
 				887EE94214D8DC2D00AB0A92 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
 		};
 		887EE94214D8DC2D00AB0A92 /* Products */ = {

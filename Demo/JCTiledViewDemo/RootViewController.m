@@ -63,6 +63,12 @@
   self.scrollView.levelsOfDetail = 3;
   
   [self.view addSubview:self.scrollView];
+  //Show anotations
+  RMAnnotation * annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(300, 300) andTitle:@"EHm"];
+  annotation.annotationIcon = [UIImage imageNamed:@"Icon.png"];
+  annotation.anchorPoint = CGPointMake(0.5, 0.5);
+  [scrollView_ addAnnotation:annotation];
+
 }
 
 - (void)viewDidUnload
@@ -93,6 +99,9 @@
 {
  return [UIImage imageNamed:[NSString stringWithFormat:@"tiles/%@_%dx_%d_%d.png", SkippingGirlImageName, scale, row, column]]; 
 }
+
+
+
 
 
 @end
