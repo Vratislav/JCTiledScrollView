@@ -185,11 +185,12 @@
     //else
     //[self insertSubview:mapScrollView atIndex:0];
     
-    overlayView = [[RMMapOverlayView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+  overlayView = [[RMMapOverlayView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+  overlayView.autoresizingMask = (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth); 
     //overlayView.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
-    overlayView.delegate = self;
+  overlayView.delegate = self;
     
-    [self insertSubview:overlayView aboveSubview:_scrollView];
+  [self insertSubview:overlayView aboveSubview:_scrollView];
 }
 
 -(void)dealloc

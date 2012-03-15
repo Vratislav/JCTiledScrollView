@@ -8,6 +8,7 @@
 
 #import "RootViewController.h"
 #import "JCTiledPDFScrollView.h"
+#import "RMMarker.h"
 
 #define SkippingGirlImageSize CGSizeMake(432., 648.)
 
@@ -63,10 +64,16 @@
   self.scrollView.levelsOfDetail = 3;
   
   [self.view addSubview:self.scrollView];
+  
   //Show anotations
-  RMAnnotation * annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(300, 300) andTitle:@"EHm"];
-  annotation.annotationIcon = [UIImage imageNamed:@"Icon.png"];
-  annotation.anchorPoint = CGPointMake(0.5, 0.5);
+  RMAnnotation * annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(340, 65) andTitle:@"Moon"];
+  annotation.annotationIcon = [UIImage imageNamed:@"markers/marker-blue.png"];
+  annotation.anchorPoint = CGPointMake(0.5, 1.0);
+  [scrollView_ addAnnotation:annotation];
+  
+  annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(220, 150) andTitle:@"Skipping Girl"];
+  annotation.annotationIcon = [UIImage imageNamed:@"markers/marker-red.png"];
+  annotation.anchorPoint = CGPointMake(0.5, 1.0);
   [scrollView_ addAnnotation:annotation];
 
 }
@@ -98,6 +105,17 @@
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale
 {
  return [UIImage imageNamed:[NSString stringWithFormat:@"tiles/%@_%dx_%d_%d.png", SkippingGirlImageName, scale, row, column]]; 
+}
+
+
+- (RMMapLayer *)mapView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation
+{
+  RMMarker *marker = [[[RMMarker alloc] initWithUIImage:annotation.annotationIcon anchorPoint:annotation.anchorPoint] autorelease];
+  if (annotation.title)
+    [marker changeLabelUsingText:annotation.title];
+  if ([annotation.userInfo objectForKey:@"foregroundColor"])
+    [marker setTextForegroundColor:[annotation.userInfo objectForKey:@"foregroundColor"]];
+  return marker;
 }
 
 
