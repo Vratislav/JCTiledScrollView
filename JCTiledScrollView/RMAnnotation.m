@@ -52,17 +52,17 @@
 @synthesize positionInTiledContent;
 @synthesize quadTreeNode;
 
-+ (id)annotationWithMapView:(JCTiledScrollView *)aMapView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle
++ (id)annotationWithScrollView:(JCTiledScrollView *)aScrollView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle
 {
-    return [[[self alloc] initWithMapView:aMapView positionInTiledContent:aPositionInTiledContent andTitle:aTitle] autorelease];
+    return [[[self alloc] initWithScrollView:aScrollView positionInTiledContent:aPositionInTiledContent andTitle:aTitle] autorelease];
 }
 
-- (id)initWithMapView:(JCTiledScrollView *)aMapView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle
+- (id)initWithScrollView:(JCTiledScrollView *)aScrollView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle
 {
     if (!(self = [super init]))
         return nil;
 
-    self.mapView      = aMapView;
+    self.mapView      = aScrollView;
     //self.coordinate   = aCoordinate;
     self.title        = aTitle;
     self.userInfo     = nil;

@@ -32,7 +32,19 @@
 
 @class JCTiledView, JCTiledLayer;
 
-@protocol JCTiledViewDelegate
+@protocol JCTiledViewDelegate <NSObject>
+@optional
+
+
+- (void)tiledView:(JCTiledView *)aTiledView singleTapAtPoint:(CGPoint)aPoint;
+- (void)tiledView:(JCTiledView *)aTiledView doubleTapAtPoint:(CGPoint)aPoint;
+- (void)tiledView:(JCTiledView *)aTiledView twoFingerSingleTapAtPoint:(CGPoint)aPoint;
+- (void)tiledView:(JCTiledView *)aTiledView twoFingerDoubleTapAtPoint:(CGPoint)aPoint;
+- (void)tiledView:(JCTiledView *)aTiledView longPressAtPoint:(CGPoint)aPoint;
+
+// points are in the given view's coordinate space
+- (UIView*)referenceViewForCoordinates;
+
 @end
 
 @protocol JCTiledBitmapViewDelegate <JCTiledViewDelegate>

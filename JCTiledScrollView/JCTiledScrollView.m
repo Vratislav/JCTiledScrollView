@@ -46,11 +46,14 @@
 
 @implementation JCTiledScrollView
 {
-    BOOL _delegateHasBeforeMapMove;
-    BOOL _delegateHasAfterMapMove;
-    BOOL _delegateHasBeforeMapZoom;
-    BOOL _delegateHasAfterMapZoom;
-    BOOL _delegateHasMapViewRegionDidChange;
+    
+  BOOL _delegateHasTiledScrollViewDidZoom;
+  BOOL _delegateHasTiledScrollViewWillZoom;
+  BOOL _delegateHasTiledScrollViewWillScroll;
+  BOOL _delegateHasTiledScrollViewDidScroll;
+  BOOL _delegateHasBeforeMapMove;
+    //BOOL _delegateHasAfterMapMove;
+    BOOL _delegateHasScrollViewRegionDidChange;
     BOOL _delegateHasDoubleTapOnMap;
     BOOL _delegateHasDoubleTapTwoFingersOnMap;
     BOOL _delegateHasSingleTapOnMap;
@@ -212,12 +215,23 @@
 }
 
 - (void)setTiledScrollViewDelegate:(id<JCTiledScrollViewDelegate>)tiledScrollViewDelegate{
-    _tiledScrollViewDelegate = tiledScrollViewDelegate;
+  _tiledScrollViewDelegate = tiledScrollViewDelegate;
+  
+  
+  _delegateHasTiledScrollViewWillZoom = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewWillZoom:)];
+  _delegateHasTiledScrollViewDidZoom = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidZoom:)];
+  
+  _delegateHasTiledScrollViewWillScroll = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewWillScroll:)];
+  _delegateHasTiledScrollViewDidScroll = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidScroll:)];
+                                           
+  
+  
+  _delegateHasLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollView:layerForAnnotation:)];
+  _delegateHasWillHideLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollView:willHideLayerForAnnotation:)];
+  _delegateHasDidHideLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollView:didHideLayerForAnnotation:)];
     
-    _delegateHasLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(mapView:layerForAnnotation:)];
-    _delegateHasWillHideLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(mapView:willHideLayerForAnnotation:)];
-    _delegateHasDidHideLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(mapView:didHideLayerForAnnotation:)];
-    
+  _delegateHasScrollViewRegionDidChange = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollViewRegionDidChange:)];
+  
 }
 
 
@@ -230,7 +244,7 @@
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-    if ([self.tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidZoom:)])
+    if (_delegateHasTiledScrollViewDidZoom)
     {
         [self.tiledScrollViewDelegate tiledScrollViewDidZoom:self];
     }
@@ -241,7 +255,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ([self.tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidScroll:)])
+    if(_delegateHasTiledScrollViewDidScroll)
     {
         [self.tiledScrollViewDelegate tiledScrollViewDidScroll:self];
     }
@@ -349,8 +363,7 @@
     _lastContentOffset = _scrollView.contentOffset;
     
     // Don't do anything stupid here or your scrolling experience will suck
-    //if (_delegateHasMapViewRegionDidChange)
-    //[delegate mapViewRegionDidChange:self];
+    if (_delegateHasScrollViewRegionDidChange)[_tiledScrollViewDelegate scrollViewRegionDidChange:self];
 }
 
 #pragma mark - JCTileSource
@@ -480,7 +493,7 @@
                     if ([annotation isAnnotationWithinBounds:[[self superview] bounds]])
                     {
                         if (annotation.layer == nil && _delegateHasLayerForAnnotation)
-                            annotation.layer = [_tiledScrollViewDelegate mapView:self layerForAnnotation:annotation];
+                            annotation.layer = [_tiledScrollViewDelegate scrollView:self layerForAnnotation:annotation];
                         if (annotation.layer == nil)
                             continue;
                         
@@ -510,13 +523,13 @@
                     else
                     {
                         if (_delegateHasWillHideLayerForAnnotation)
-                            [_tiledScrollViewDelegate mapView:self willHideLayerForAnnotation:annotation];
+                            [_tiledScrollViewDelegate scrollView:self willHideLayerForAnnotation:annotation];
                         
                         annotation.layer = nil;
                         [visibleAnnotations removeObject:annotation];
                         
                         if (_delegateHasDidHideLayerForAnnotation)
-                            [_tiledScrollViewDelegate mapView:self didHideLayerForAnnotation:annotation];
+                            [_tiledScrollViewDelegate scrollView:self didHideLayerForAnnotation:annotation];
                     }
                 }
                 //                RMLog(@"%d annotations on screen, %d total", [overlayView sublayersCount], [annotations count]);
@@ -553,13 +566,13 @@
         
         [self correctScreenPosition:annotation];
         
-        if ([annotation isAnnotationOnScreen] && [self.tiledScrollViewDelegate respondsToSelector:@selector(mapView:layerForAnnotation:)])
+        if ([annotation isAnnotationOnScreen] && _delegateHasLayerForAnnotation)
         {
-            annotation.layer = [self.tiledScrollViewDelegate mapView:self layerForAnnotation:annotation];
+            annotation.layer = [self.tiledScrollViewDelegate scrollView:self layerForAnnotation:annotation];
             
             if (annotation.layer)
             {
-                //NSLog(@"Annotation is on screen and has a layer");
+                NSLog(@"Annotation is on screen and has a layer");
                 [overlayView addSublayer:annotation.layer];
                 [visibleAnnotations addObject:annotation];
             }

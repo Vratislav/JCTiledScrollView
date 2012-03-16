@@ -55,6 +55,30 @@ static const CGFloat kDefaultTileSize = 256.0f;
     self.tiledLayer.tileSize = scaledTileSize;
     self.tiledLayer.levelsOfDetail = 1;
     self.numberOfZoomLevels = 3;
+    
+    UITapGestureRecognizer *doubleTapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTap:)] autorelease];
+    doubleTapRecognizer.numberOfTapsRequired = 2;
+    
+    UITapGestureRecognizer *singleTapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)] autorelease];
+    [singleTapRecognizer requireGestureRecognizerToFail:doubleTapRecognizer];
+    
+    UITapGestureRecognizer *twoFingerDoubleTapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerDoubleTap:)] autorelease];
+    twoFingerDoubleTapRecognizer.numberOfTapsRequired = 2;
+    twoFingerDoubleTapRecognizer.numberOfTouchesRequired = 2;
+    
+    UITapGestureRecognizer *twoFingerSingleTapRecognizer = [[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTwoFingerSingleTap:)] autorelease];
+    twoFingerSingleTapRecognizer.numberOfTouchesRequired = 2;
+    [twoFingerSingleTapRecognizer requireGestureRecognizerToFail:twoFingerDoubleTapRecognizer];
+    
+    UILongPressGestureRecognizer *longPressRecognizer = [[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)] autorelease];
+    
+    [self addGestureRecognizer:singleTapRecognizer];
+    [self addGestureRecognizer:doubleTapRecognizer];
+    [self addGestureRecognizer:twoFingerDoubleTapRecognizer];
+    [self addGestureRecognizer:twoFingerSingleTapRecognizer];
+    [self addGestureRecognizer:longPressRecognizer];
+    
+    
   }
 
   return self;
@@ -112,5 +136,40 @@ static const CGFloat kDefaultTileSize = 256.0f;
   CGContextStrokeRect(ctx, rect);
 }
 #endif
+
+#pragma mark Event handling
+
+- (void)handleSingleTap:(UIGestureRecognizer *)recognizer
+{
+  
+  if ([_delegate respondsToSelector:@selector(tiledView:singleTapAtPoint:)])
+    [_delegate tiledView:self singleTapAtPoint:[recognizer locationInView:[_delegate referenceViewForCoordinates]]];
+}
+
+- (void)handleTwoFingerSingleTap:(UIGestureRecognizer *)recognizer
+{
+  if ([_delegate respondsToSelector:@selector(tiledView:twoFingerSingleTapAtPoint:)])
+    [_delegate tiledView:self twoFingerSingleTapAtPoint:[recognizer locationInView:[_delegate referenceViewForCoordinates]]];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+  if (recognizer.state != UIGestureRecognizerStateBegan) return;
+  
+  if ([_delegate respondsToSelector:@selector(tiledView:longPressAtPoint:)])
+    [_delegate tiledView:self longPressAtPoint:[recognizer locationInView:[_delegate referenceViewForCoordinates]]];
+}
+
+- (void)handleDoubleTap:(UIGestureRecognizer *)recognizer
+{
+  if ([_delegate respondsToSelector:@selector(tiledView:doubleTapAtPoint:)])
+    [_delegate tiledView:self doubleTapAtPoint:[recognizer locationInView:[_delegate referenceViewForCoordinates]]];
+}
+
+- (void)handleTwoFingerDoubleTap:(UIGestureRecognizer *)recognizer
+{
+  if ([_delegate respondsToSelector:@selector(tiledView:twoFingerDoubleTapAtPoint:)])
+    [_delegate tiledView:self twoFingerDoubleTapAtPoint:[recognizer locationInView:[_delegate referenceViewForCoordinates]]];
+}
 
 @end

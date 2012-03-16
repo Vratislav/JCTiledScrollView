@@ -66,12 +66,12 @@
   [self.view addSubview:self.scrollView];
   
   //Show anotations
-  RMAnnotation * annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(340, 65) andTitle:@"Moon"];
+  RMAnnotation * annotation = [RMAnnotation annotationWithScrollView:self.scrollView positionInTiledContent:CGPointMake(340, 65) andTitle:@"Moon"];
   annotation.annotationIcon = [UIImage imageNamed:@"markers/marker-blue.png"];
   annotation.anchorPoint = CGPointMake(0.5, 1.0);
   [scrollView_ addAnnotation:annotation];
   
-  annotation = [RMAnnotation annotationWithMapView:self.scrollView positionInTiledContent:CGPointMake(220, 150) andTitle:@"Skipping Girl"];
+  annotation = [RMAnnotation annotationWithScrollView:self.scrollView positionInTiledContent:CGPointMake(220, 150) andTitle:@"Skipping Girl"];
   annotation.annotationIcon = [UIImage imageNamed:@"markers/marker-red.png"];
   annotation.anchorPoint = CGPointMake(0.5, 1.0);
   [scrollView_ addAnnotation:annotation];
@@ -108,7 +108,7 @@
 }
 
 
-- (RMMapLayer *)mapView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation
+- (RMMapLayer *)scrollView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation
 {
   RMMarker *marker = [[[RMMarker alloc] initWithUIImage:annotation.annotationIcon anchorPoint:annotation.anchorPoint] autorelease];
   if (annotation.title)

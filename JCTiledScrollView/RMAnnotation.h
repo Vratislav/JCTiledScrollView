@@ -77,8 +77,8 @@
 // This is for the QuadTree. Don't mess this up.
 @property (nonatomic, assign) RMQuadTreeNode *quadTreeNode;
 
-+ (id)annotationWithMapView:(JCTiledScrollView *)aMapView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle;
-- (id)initWithMapView:(JCTiledScrollView *)aMapView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle;
++ (id)annotationWithScrollView:(JCTiledScrollView *)aScrollView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle;
+- (id)initWithScrollView:(JCTiledScrollView *)aScrollView positionInTiledContent:(CGPoint)aPositionInTiledContent andTitle:(NSString *)aTitle;
 
 - (void)setBoundingBoxCoordinatesSouthWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast;
 - (void)setBoundingBoxFromLocations:(NSArray *)locations;

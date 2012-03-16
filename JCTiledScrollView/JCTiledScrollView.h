@@ -42,12 +42,22 @@
 @protocol JCTiledScrollViewDelegate <NSObject>
 @optional
 - (void)tiledScrollViewDidZoom:(JCTiledScrollView *)scrollView;
+- (void)tiledScrollViewWillZoom:(JCTiledScrollView *)scrollView;
+- (void)tiledScrollViewWillScroll:(JCTiledScrollView*)scrollView;
 - (void)tiledScrollViewDidScroll:(JCTiledScrollView *)scrollView;
 
+
 //From RMMApViewDelegate
-- (RMMapLayer *)mapView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation;
-- (void)mapView:(JCTiledScrollView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
-- (void)mapView:(JCTiledScrollView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
+- (void)scrollViewRegionDidChange:(JCTiledScrollView *)scrollView;
+- (RMMapLayer *)scrollView:(JCTiledScrollView *)mapView layerForAnnotation:(RMAnnotation *)annotation;
+- (void)scrollView:(JCTiledScrollView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
+- (void)scrollView:(JCTiledScrollView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
+
+- (void)tapOnAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
+- (void)doubleTapOnAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
+- (void)tapOnLabelForAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
+- (void)doubleTapOnLabelForAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
+
 
 @end
 
