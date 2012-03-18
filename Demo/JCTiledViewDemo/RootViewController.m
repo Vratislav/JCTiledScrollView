@@ -75,6 +75,8 @@
   annotation.annotationIcon = [UIImage imageNamed:@"markers/marker-red.png"];
   annotation.anchorPoint = CGPointMake(0.5, 1.0);
   [scrollView_ addAnnotation:annotation];
+  
+
 
 }
 
@@ -95,7 +97,7 @@
 
 - (void)tiledScrollViewDidZoom:(JCTiledScrollView *)scrollView
 {
-  self.detailView.textLabel.text = [NSString stringWithFormat:@"zoomScale: %0.2f", scrollView.zoomScale];
+  self.detailView.textLabel.text = [NSString stringWithFormat:@"zoomScale: %0.2f, zSLOG %0.2f", scrollView.zoomScale,log2f(scrollView.zoomScale)];
 }
 
 #pragma mark - JCTileSource

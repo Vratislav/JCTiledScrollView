@@ -54,11 +54,11 @@
   BOOL _delegateHasBeforeMapMove;
     //BOOL _delegateHasAfterMapMove;
     BOOL _delegateHasScrollViewRegionDidChange;
-    BOOL _delegateHasDoubleTapOnMap;
-    BOOL _delegateHasDoubleTapTwoFingersOnMap;
-    BOOL _delegateHasSingleTapOnMap;
-    BOOL _delegateHasSingleTapTwoFingersOnMap;
-    BOOL _delegateHasLongSingleTapOnMap;
+    BOOL _delegateHasDoubleTapOnScrollView;
+    BOOL _delegateHasDoubleTapTwoFingersOnScrollView;
+    BOOL _delegateHasSingleTapOnScrollView;
+    BOOL _delegateHasSingleTapTwoFingersOnScrollView;
+    BOOL _delegateHasLongSingleTapOnScrollView;
     BOOL _delegateHasTapOnAnnotation;
     BOOL _delegateHasDoubleTapOnAnnotation;
     BOOL _delegateHasTapOnLabelForAnnotation;
@@ -101,7 +101,7 @@
         self.autoresizingMask = (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth);
         _scrollView.autoresizingMask = (UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth);  
         self.levelsOfZoom = 2;
-        _scrollView.minimumZoomScale = 1.;
+        _scrollView.minimumZoomScale = 0.5;
         _scrollView.delegate = self;
         self.backgroundColor = [UIColor whiteColor];
         _scrollView.contentSize = contentSize;
@@ -120,7 +120,9 @@
         [self addSubview:_scrollView];
 
         //From RMMapView
-        _lastZoom = log2f(self.zoomScale);
+    zoom = log2f(self.zoomScale);
+    _lastZoom = zoom;
+    
         _constrainMovement = NO;
         _mapScrollViewIsZooming = NO;
         _accumulatedDelta = CGPointMake(0.0, 0.0);
@@ -224,7 +226,11 @@
   _delegateHasTiledScrollViewWillScroll = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewWillScroll:)];
   _delegateHasTiledScrollViewDidScroll = [_tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidScroll:)];
                                            
-  
+  _delegateHasDoubleTapOnScrollView = [_tiledScrollViewDelegate respondsToSelector:@selector(doubleTapOnScrollView:at:)];
+  _delegateHasDoubleTapTwoFingersOnScrollView = [_tiledScrollViewDelegate respondsToSelector:@selector(doubleTapTwoFingersOnScrollView:at:)];
+  _delegateHasSingleTapOnScrollView = [_tiledScrollViewDelegate respondsToSelector:@selector(singleTapOnScrollView:at:)];
+  _delegateHasSingleTapTwoFingersOnScrollView = [_tiledScrollViewDelegate respondsToSelector:@selector(singleTapOnScrollView:at:)];
+  _delegateHasLongSingleTapOnScrollView = [_tiledScrollViewDelegate respondsToSelector:@selector(longSingleTapOnScrollView:at:)];
   
   _delegateHasLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollView:layerForAnnotation:)];
   _delegateHasWillHideLayerForAnnotation = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollView:willHideLayerForAnnotation:)];
@@ -233,6 +239,197 @@
   _delegateHasScrollViewRegionDidChange = [_tiledScrollViewDelegate respondsToSelector:@selector(scrollViewRegionDidChange:)];
   
 }
+
+
+#pragma mark - zoom
+- (float)zoom
+{
+  return zoom;
+}
+
+ //if #zoom is outside of range #minZoom to #maxZoom, zoom level is clamped to that range.
+- (void)setZoom:(float)newZoom
+{
+  zoom = (newZoom > self.levelsOfZoom) ? self.levelsOfZoom : newZoom;
+  zoom = (zoom < log2f(_scrollView.minimumZoomScale)) ? log2f(_scrollView.minimumZoomScale) : zoom;
+  
+      NSLog(@"New zoom:%f", zoom);
+  _scrollView.zoomScale = exp2f(zoom);
+}
+
+- (float)nextNativeZoomFactor
+{
+  float newZoom = fminf(floorf([self zoom] + 1.0), self.levelsOfZoom);
+  
+  return exp2f(newZoom - [self zoom]);
+}
+
+- (float)previousNativeZoomFactor
+{
+  float newZoom = fmaxf(floorf([self zoom] - 1.0), log2f(_scrollView.minimumZoomScale));
+  
+  return exp2f(newZoom - [self zoom]);
+}
+
+- (void)zoomInToNextNativeZoomAt:(CGPoint)pivot
+{
+  [self zoomInToNextNativeZoomAt:pivot animated:NO];
+}
+//
+- (void)zoomInToNextNativeZoomAt:(CGPoint)pivot animated:(BOOL)animated
+{
+  // Calculate rounded zoom
+  float newZoom = fmin(ceilf([self zoom]) + 0.99, self.levelsOfZoom);
+  
+  if (newZoom == self.zoom)
+    return;
+  
+  float factor = exp2f(newZoom - [self zoom]);
+  
+  if (factor > 2.25)
+  {
+    newZoom = fmin(ceilf([self zoom]) - 0.01, self.levelsOfZoom);
+    factor = exp2f(newZoom - [self zoom]);
+  }
+  
+  //    RMLog(@"zoom in from:%f to:%f by factor:%f around {%f,%f}", [self zoom], newZoom, factor, pivot.x, pivot.y);
+  [self zoomContentByFactor:factor near:pivot animated:animated];
+}
+
+- (void)zoomOutToNextNativeZoomAt:(CGPoint)pivot
+{
+  [self zoomOutToNextNativeZoomAt:pivot animated:NO];
+}
+
+- (void)zoomOutToNextNativeZoomAt:(CGPoint)pivot animated:(BOOL) animated
+{
+  // Calculate rounded zoom
+  float newZoom = fmax(floorf([self zoom]) - 0.01, log2f(_scrollView.minimumZoomScale));
+  
+  if (newZoom == self.zoom)
+    return;
+  
+  float factor = exp2f(newZoom - [self zoom]);
+  
+  if (factor > 0.75)
+  {
+    newZoom = fmax(floorf([self zoom]) - 1.01, log2f(_scrollView.minimumZoomScale));
+    factor = exp2f(newZoom - [self zoom]);
+  }
+  
+  //    RMLog(@"zoom out from:%f to:%f by factor:%f around {%f,%f}", [self zoom], newZoom, factor, pivot.x, pivot.y);
+  [self zoomContentByFactor:factor near:pivot animated:animated];
+}
+
+
+- (void)zoomContentByFactor:(float)zoomFactor near:(CGPoint)pivot animated:(BOOL)animated
+{
+  //if (![self tileSourceBoundsContainScreenPoint:pivot])
+    //return;
+  
+  //zoomFactor = [self adjustedZoomForCurrentBoundingMask:zoomFactor];
+  float zoomDelta = log2f(zoomFactor);
+  float targetZoom = zoomDelta + [self zoom];
+  
+  if (targetZoom == [self zoom])
+    return;
+  
+  // clamp zoom to remain below or equal to maxZoom after zoomAfter will be applied
+  // Set targetZoom to maxZoom so the map zooms to its maximum
+  if (targetZoom > [self levelsOfZoom])
+  {
+    zoomFactor = exp2f([self levelsOfZoom] - [self zoom]);
+    targetZoom = [self levelsOfZoom];
+  }
+  
+  // clamp zoom to remain above or equal to minZoom after zoomAfter will be applied
+  // Set targetZoom to minZoom so the map zooms to its maximum
+  if (targetZoom < log2f(_scrollView.minimumZoomScale))
+  {
+    zoomFactor = 1/exp2f([self zoom] - log2f(_scrollView.minimumZoomScale));
+    targetZoom = log2f(_scrollView.minimumZoomScale);
+  }
+  
+  if ([self shouldZoomToTargetZoom:targetZoom withZoomFactor:zoomFactor])
+  {
+    float zoomScale = _scrollView.zoomScale;
+    CGSize newZoomSize = CGSizeMake(_scrollView.bounds.size.width / zoomFactor,
+                                    _scrollView.bounds.size.height / zoomFactor);
+    CGFloat factorX = pivot.x / _scrollView.bounds.size.width,
+    factorY = pivot.y / _scrollView.bounds.size.height;
+    CGRect zoomRect = CGRectMake(((_scrollView.contentOffset.x + pivot.x) - (newZoomSize.width * factorX)) / zoomScale,
+                                 ((_scrollView.contentOffset.y + pivot.y) - (newZoomSize.height * factorY)) / zoomScale,
+                                 newZoomSize.width / zoomScale,
+                                 newZoomSize.height / zoomScale);
+    [_scrollView zoomToRect:zoomRect animated:animated];
+  }
+  else
+  {
+    if ([self zoom] > [self levelsOfZoom])
+      [self setZoom:[self levelsOfZoom]];
+    if ([self zoom] < log2f(_scrollView.minimumZoomScale))
+      [self setZoom:log2f(_scrollView.minimumZoomScale)];
+  }
+}
+
+- (BOOL)shouldZoomToTargetZoom:(float)targetZoom withZoomFactor:(float)zoomFactor
+{
+  // bools for syntactical sugar to understand the logic in the if statement below
+  BOOL zoomAtMax = ([self zoom] == [self levelsOfZoom]);
+  BOOL zoomAtMin = ([self zoom] == log2f(_scrollView.minimumZoomScale));
+  BOOL zoomGreaterMin = ([self zoom] > log2f(_scrollView.minimumZoomScale));
+  BOOL zoomLessMax = ([self zoom] < [self levelsOfZoom]);
+  
+  //zooming in zoomFactor > 1
+  //zooming out zoomFactor < 1
+  if ((zoomGreaterMin && zoomLessMax) || (zoomAtMax && zoomFactor<1) || (zoomAtMin && zoomFactor>1))
+    return YES;
+  else
+    return NO;
+}
+
+//- (float)adjustedZoomForCurrentBoundingMask:(float)zoomFactor
+//{
+//  if (boundingMask == RMMapNoMinBound)
+//    return zoomFactor;
+//  
+//  double newMetersPerPixel = self.metersPerPixel / zoomFactor;
+//  
+//  RMProjectedRect mercatorBounds = [projection planetBounds];
+//  
+//  // Check for MinWidthBound
+//  if (boundingMask & RMMapMinWidthBound)
+//  {
+//    double newMapContentsWidth = mercatorBounds.size.width / newMetersPerPixel;
+//    double screenBoundsWidth = [self bounds].size.width;
+//    double mapContentWidth;
+//    
+//    if (newMapContentsWidth < screenBoundsWidth)
+//    {
+//      // Calculate new zoom facter so that it does not shrink the map any further.
+//      mapContentWidth = mercatorBounds.size.width / self.metersPerPixel;
+//      zoomFactor = screenBoundsWidth / mapContentWidth;
+//    }
+//  }
+//  
+//  // Check for MinHeightBound
+//  if (boundingMask & RMMapMinHeightBound)
+//  {
+//    double newMapContentsHeight = mercatorBounds.size.height / newMetersPerPixel;
+//    double screenBoundsHeight = [self bounds].size.height;
+//    double mapContentHeight;
+//    
+//    if (newMapContentsHeight < screenBoundsHeight)
+//    {
+//      // Calculate new zoom facter so that it does not shrink the map any further.
+//      mapContentHeight = mercatorBounds.size.height / self.metersPerPixel;
+//      zoomFactor = screenBoundsHeight / mapContentHeight;
+//    }
+//  }
+//  
+//  return zoomFactor;
+//}
+
 
 
 #pragma mark - UIScrolViewDelegate
@@ -273,6 +470,52 @@
     _mapScrollViewIsZooming = NO;
     
     [self correctPositionOfAllAnnotations];
+}
+
+
+
+#pragma mark - JCTiledView delegate
+-(UIView*)referenceViewForCoordinates{
+  return self;
+}
+
+
+-(void)tiledView:(JCTiledView *)aTiledView singleTapAtPoint:(CGPoint)aPoint{
+  NSLog(@"Tap at point %f, %f",aPoint.x,aPoint.y);
+  if (_delegateHasSingleTapOnScrollView)
+    [_tiledScrollViewDelegate singleTapOnScrollView:self at:aPoint];
+}
+
+
+- (void)tiledView:(JCTiledView *)aTiledView doubleTapAtPoint:(CGPoint)aPoint{
+
+  [self zoomInToNextNativeZoomAt:aPoint animated:YES];
+  if(_delegateHasDoubleTapOnScrollView)
+    [_tiledScrollViewDelegate doubleTapOnScrollView:self at:aPoint];
+}
+
+
+
+- (void)tiledView:(JCTiledView *)aTiledView twoFingerDoubleTapAtPoint:(CGPoint)aPoint{
+  [self zoomOutToNextNativeZoomAt:aPoint animated:YES];
+  if(_delegateHasDoubleTapTwoFingersOnScrollView){
+    [_tiledScrollViewDelegate doubleTapTwoFingersOnScrollView:self at:aPoint];
+  }
+}
+
+
+-(void)tiledView:(JCTiledView *)aTiledView twoFingerSingleTapAtPoint:(CGPoint)aPoint{
+  //[self zoomOutToNextNativeZoomAt:aPoint animated:YES];
+  
+  if(_delegateHasSingleTapTwoFingersOnScrollView)
+    [_tiledScrollViewDelegate singleTapTwoFingersOnScrollView:self at:aPoint];
+}
+
+
+
+- (void)tiledView:(JCTiledView *)aTiledView longPressAtPoint:(CGPoint)aPoint{
+  if(_delegateHasLongSingleTapOnScrollView)
+    [_tiledScrollViewDelegate longSingleTapOnScrollView:self at:aPoint];
 }
 
 
@@ -320,7 +563,7 @@
 {
     //RMProjectedRect planetBounds = projection.planetBounds;
     //metersPerPixel = planetBounds.size.width / mapScrollView.contentSize.width;
-    float zoom = log2f(self.zoomScale);
+    zoom = log2f(self.zoomScale);
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(correctPositionOfAllAnnotations) object:nil];
     

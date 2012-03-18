@@ -33,6 +33,8 @@
 #import "RMAnnotation.h"
 #import "RMMapOverlayView.h"
 
+
+
 @class JCTiledScrollView, JCTiledView;
 
 @protocol JCTileSource <NSObject>
@@ -53,6 +55,13 @@
 - (void)scrollView:(JCTiledScrollView *)mapView willHideLayerForAnnotation:(RMAnnotation *)annotation;
 - (void)scrollView:(JCTiledScrollView *)mapView didHideLayerForAnnotation:(RMAnnotation *)annotation;
 
+- (void)doubleTapOnScrollView:(JCTiledScrollView *)scrollView at:(CGPoint)point;
+- (void)doubleTapTwoFingersOnScrollView:(JCTiledScrollView *)scrollView at:(CGPoint)point;
+- (void)singleTapOnScrollView:(JCTiledScrollView *)scrollView at:(CGPoint)point;
+- (void)singleTapTwoFingersOnScrollView:(JCTiledScrollView *)scrollView at:(CGPoint)point;
+- (void)longSingleTapOnScrollView:(JCTiledScrollView *)scrollView at:(CGPoint)point;
+
+
 - (void)tapOnAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
 - (void)doubleTapOnAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
 - (void)tapOnLabelForAnnotation:(RMAnnotation *)annotation inScrollView:(JCTiledScrollView *)scrollView;
@@ -67,15 +76,20 @@
     NSMutableSet   *visibleAnnotations;
     BOOL            enableClustering, positionClusterMarkersAtTheGravityCenter;
     RMMapOverlayView *overlayView;
+  float zoom;
 }
 
 @property (nonatomic, assign) id <JCTiledScrollViewDelegate> tiledScrollViewDelegate;
 @property (nonatomic, retain) UIScrollView * scrollView;
 @property (nonatomic, assign) float zoomScale;
+
 @property (nonatomic, assign) id <JCTileSource> dataSource;
 @property (nonatomic, retain) JCTiledView *tiledView;
 @property (nonatomic, assign) size_t levelsOfZoom;
 @property (nonatomic, assign) size_t levelsOfDetail;
+//From RMMapView
+@property (nonatomic, assign) float zoom; /// zoom level is clamped to range (minZoom, maxZoom)
+
 
 + (Class)tiledLayerClass;
 
@@ -85,6 +99,26 @@
 
 //From RMMapView
 - (void)addAnnotation:(RMAnnotation *)annotation;
+
+
+#pragma mark Zoom
+
+/// recenter the map on #boundsRect, expressed in projected meters
+//- (void)setProjectedBounds:(RMProjectedRect)boundsRect animated:(BOOL)animated;
+
+- (void)zoomByFactor:(float)zoomFactor near:(CGPoint)center animated:(BOOL)animated;
+
+- (void)zoomInToNextNativeZoomAt:(CGPoint)pivot animated:(BOOL)animated;
+- (void)zoomOutToNextNativeZoomAt:(CGPoint)pivot animated:(BOOL)animated;
+
+- (void)zoomWithLatitudeLongitudeBoundsSouthWest:(CLLocationCoordinate2D)southWest northEast:(CLLocationCoordinate2D)northEast animated:(BOOL)animated;
+
+- (float)nextNativeZoomFactor;
+- (float)previousNativeZoomFactor;
+
+- (void)setMetersPerPixel:(double)newMetersPerPixel animated:(BOOL)animated;
+
+
 
 
 @end

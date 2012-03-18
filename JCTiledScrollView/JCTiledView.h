@@ -43,6 +43,7 @@
 - (void)tiledView:(JCTiledView *)aTiledView longPressAtPoint:(CGPoint)aPoint;
 
 // points are in the given view's coordinate space
+//TODO, give coordinates in JCTiledView coordinates if this method is absent on delegate
 - (UIView*)referenceViewForCoordinates;
 
 @end
