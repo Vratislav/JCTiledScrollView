@@ -27,8 +27,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 //#import "RMFoundation.h"
+#import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
-
+#import <CoreGraphics/CoreGraphics.h>
 
 @class JCTiledScrollView, RMMapLayer, RMQuadTreeNode;
 

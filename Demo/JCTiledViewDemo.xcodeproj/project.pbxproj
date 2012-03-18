@@ -7,6 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2627092015164D3C002EF183 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887EE94714D8DC2D00AB0A92 /* Foundation.framework */; };
+		2627092B15164D71002EF183 /* RMAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E11511642600E6918A /* RMAnnotation.m */; };
+		2627092C15164D71002EF183 /* RMMapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E31511642600E6918A /* RMMapLayer.m */; };
+		2627092D15164D71002EF183 /* RMMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E51511642600E6918A /* RMMapOverlayView.m */; };
+		2627092E15164D71002EF183 /* RMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E71511642600E6918A /* RMMarker.m */; };
+		2627092F15164D71002EF183 /* RMPixel.c in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E81511642600E6918A /* RMPixel.c */; };
+		2627093015164D71002EF183 /* JCTiledScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 887EE98014D8DDDA00AB0A92 /* JCTiledScrollView.m */; };
+		2627093115164D71002EF183 /* JCTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 887EE98214D8DDDA00AB0A92 /* JCTiledView.m */; };
+		2627093215164D71002EF183 /* JCTiledLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 88DCC87C14F3BEAA00B206F5 /* JCTiledLayer.m */; };
+		2627093315164D71002EF183 /* JCTiledPDFScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88DCC88814F6505300B206F5 /* JCTiledPDFScrollView.m */; };
+		2627093415164D71002EF183 /* JCPDFTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88DCC87A14F3BEAA00B206F5 /* JCPDFTiledView.m */; };
+		2627093515164D71002EF183 /* CGPDFDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 88DCC87814F3BEAA00B206F5 /* CGPDFDocument.m */; };
+		2627093615165FDC002EF183 /* RMAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C725E01511642600E6918A /* RMAnnotation.h */; };
+		2627093715165FDC002EF183 /* RMMapLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C725E21511642600E6918A /* RMMapLayer.h */; };
+		2627093815165FDC002EF183 /* RMMapOverlayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C725E41511642600E6918A /* RMMapOverlayView.h */; };
+		2627093915165FDC002EF183 /* RMMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C725E61511642600E6918A /* RMMarker.h */; };
+		2627093A15165FDC002EF183 /* RMPixel.h in Headers */ = {isa = PBXBuildFile; fileRef = 26C725E91511642600E6918A /* RMPixel.h */; };
+		2627093B15165FDC002EF183 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 887EE97F14D8DDDA00AB0A92 /* JCTiledScrollView.h */; };
+		2627093C15165FDC002EF183 /* JCTiledView.h in Headers */ = {isa = PBXBuildFile; fileRef = 887EE98114D8DDDA00AB0A92 /* JCTiledView.h */; };
+		2627093D15165FDC002EF183 /* JCTiledLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 88DCC87B14F3BEAA00B206F5 /* JCTiledLayer.h */; };
+		2627093E15165FDC002EF183 /* JCTiledPDFScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88DCC88714F6505300B206F5 /* JCTiledPDFScrollView.h */; };
+		2627093F15165FDC002EF183 /* JCPDFTiledView.h in Headers */ = {isa = PBXBuildFile; fileRef = 88DCC87914F3BEAA00B206F5 /* JCPDFTiledView.h */; };
+		2627094015165FDC002EF183 /* CGPDFDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 88DCC87714F3BEAA00B206F5 /* CGPDFDocument.h */; };
+		2627094115165FF2002EF183 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8809DC5114D8E8560003B4C6 /* QuartzCore.framework */; };
+		2627094215165FF2002EF183 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887EE94514D8DC2D00AB0A92 /* UIKit.framework */; };
+		2627094315165FF2002EF183 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 887EE94914D8DC2D00AB0A92 /* CoreGraphics.framework */; };
 		26C725EA1511719900E6918A /* RMAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E11511642600E6918A /* RMAnnotation.m */; };
 		26C725EB1511719900E6918A /* RMMapLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E31511642600E6918A /* RMMapLayer.m */; };
 		26C725EC1511719900E6918A /* RMMapOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 26C725E51511642600E6918A /* RMMapOverlayView.m */; };
@@ -37,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2627091F15164D3C002EF183 /* libjctiledview.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libjctiledview.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2627092315164D3C002EF183 /* jctiledview-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "jctiledview-Prefix.pch"; sourceTree = "<group>"; };
 		26C725E01511642600E6918A /* RMAnnotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMAnnotation.h; sourceTree = "<group>"; };
 		26C725E11511642600E6918A /* RMAnnotation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RMAnnotation.m; sourceTree = "<group>"; };
 		26C725E21511642600E6918A /* RMMapLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RMMapLayer.h; sourceTree = "<group>"; };
@@ -84,6 +112,17 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2627091C15164D3C002EF183 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2627092015164D3C002EF183 /* Foundation.framework in Frameworks */,
+				2627094115165FF2002EF183 /* QuartzCore.framework in Frameworks */,
+				2627094215165FF2002EF183 /* UIKit.framework in Frameworks */,
+				2627094315165FF2002EF183 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		887EE93E14D8DC2D00AB0A92 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -98,6 +137,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2627092115164D3C002EF183 /* jctiledview */ = {
+			isa = PBXGroup;
+			children = (
+				2627092215164D3C002EF183 /* Supporting Files */,
+			);
+			path = jctiledview;
+			sourceTree = "<group>";
+		};
+		2627092215164D3C002EF183 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2627092315164D3C002EF183 /* jctiledview-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		2698E114151138210036BAD2 /* RMStuff */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +176,7 @@
 				88C19C7F150C4D6E007184E6 /* README.md */,
 				887EE94B14D8DC2D00AB0A92 /* JCTiledViewDemo */,
 				887EE97E14D8DDDA00AB0A92 /* JCTiledScrollView */,
+				2627092115164D3C002EF183 /* jctiledview */,
 				887EE94414D8DC2D00AB0A92 /* Frameworks */,
 				887EE94214D8DC2D00AB0A92 /* Products */,
 			);
@@ -131,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				887EE94114D8DC2D00AB0A92 /* JCTiledView.app */,
+				2627091F15164D3C002EF183 /* libjctiledview.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -216,7 +273,45 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		2627091D15164D3C002EF183 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2627093615165FDC002EF183 /* RMAnnotation.h in Headers */,
+				2627093715165FDC002EF183 /* RMMapLayer.h in Headers */,
+				2627093815165FDC002EF183 /* RMMapOverlayView.h in Headers */,
+				2627093915165FDC002EF183 /* RMMarker.h in Headers */,
+				2627093A15165FDC002EF183 /* RMPixel.h in Headers */,
+				2627093B15165FDC002EF183 /* JCTiledScrollView.h in Headers */,
+				2627093C15165FDC002EF183 /* JCTiledView.h in Headers */,
+				2627093D15165FDC002EF183 /* JCTiledLayer.h in Headers */,
+				2627093E15165FDC002EF183 /* JCTiledPDFScrollView.h in Headers */,
+				2627093F15165FDC002EF183 /* JCPDFTiledView.h in Headers */,
+				2627094015165FDC002EF183 /* CGPDFDocument.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		2627091E15164D3C002EF183 /* jctiledview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2627092915164D3C002EF183 /* Build configuration list for PBXNativeTarget "jctiledview" */;
+			buildPhases = (
+				2627091B15164D3C002EF183 /* Sources */,
+				2627091C15164D3C002EF183 /* Frameworks */,
+				2627091D15164D3C002EF183 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = jctiledview;
+			productName = jctiledview;
+			productReference = 2627091F15164D3C002EF183 /* libjctiledview.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		887EE94014D8DC2D00AB0A92 /* JCTiledViewDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 887EE95914D8DC2D00AB0A92 /* Build configuration list for PBXNativeTarget "JCTiledViewDemo" */;
@@ -256,6 +351,7 @@
 			projectRoot = "";
 			targets = (
 				887EE94014D8DC2D00AB0A92 /* JCTiledViewDemo */,
+				2627091E15164D3C002EF183 /* jctiledview */,
 			);
 		};
 /* End PBXProject section */
@@ -279,6 +375,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2627091B15164D3C002EF183 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2627092B15164D71002EF183 /* RMAnnotation.m in Sources */,
+				2627092C15164D71002EF183 /* RMMapLayer.m in Sources */,
+				2627092D15164D71002EF183 /* RMMapOverlayView.m in Sources */,
+				2627092E15164D71002EF183 /* RMMarker.m in Sources */,
+				2627092F15164D71002EF183 /* RMPixel.c in Sources */,
+				2627093015164D71002EF183 /* JCTiledScrollView.m in Sources */,
+				2627093115164D71002EF183 /* JCTiledView.m in Sources */,
+				2627093215164D71002EF183 /* JCTiledLayer.m in Sources */,
+				2627093315164D71002EF183 /* JCTiledPDFScrollView.m in Sources */,
+				2627093415164D71002EF183 /* JCPDFTiledView.m in Sources */,
+				2627093515164D71002EF183 /* CGPDFDocument.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		887EE93D14D8DC2D00AB0A92 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +429,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2627092715164D3C002EF183 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jctiledview.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jctiledview/jctiledview-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2627092815164D3C002EF183 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/jctiledview.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "jctiledview/jctiledview-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		887EE95714D8DC2D00AB0A92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -389,6 +531,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2627092915164D3C002EF183 /* Build configuration list for PBXNativeTarget "jctiledview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2627092715164D3C002EF183 /* Debug */,
+				2627092815164D3C002EF183 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		887EE93B14D8DC2D00AB0A92 /* Build configuration list for PBXProject "JCTiledViewDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
