@@ -435,6 +435,10 @@
 				DSTROOT = /tmp/jctiledview.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "jctiledview/jctiledview-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_LDFLAGS = "-ObjC";
@@ -538,6 +542,7 @@
 				2627092815164D3C002EF183 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		887EE93B14D8DC2D00AB0A92 /* Build configuration list for PBXProject "JCTiledViewDemo" */ = {
 			isa = XCConfigurationList;
